@@ -15,3 +15,17 @@ class SmokeTest(unittest.TestCase):
             request.text)
         self.assertTrue(
             request.content.endswith(bytes('</body>\n</html>\n', 'utf-8')))
+
+
+class TestMainPage:
+    """WebTest test for title"""
+
+    def test_main_page_returns_200(self, user, testapp):
+        """Login successful."""
+        # Goes to homepage
+        res = testapp.get('/')
+        assert res.status_code == 200
+
+    def test_main_page_returns_expected_title(self, user, testapp):
+        res = testapp.get('/')
+        assert '<title>\n  \n    tdd_with_python\n  \n    \n  </title>\n' in res
