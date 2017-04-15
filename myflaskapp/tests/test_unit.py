@@ -11,7 +11,7 @@ class SmokeTest(unittest.TestCase):
         self.assertTrue(
             request.content.startswith(b'\n\n<!doctype html>\n'))
         self.assertIn(
-            '<title>\n  \n    tdd_with_python\n  \n    \n  </title>\n',
+            '<title>\n  \n    To-Do\n  \n    \n  </title>\n',
             request.text)
         self.assertTrue(request.content.endswith(b'</body>\n</html>\n'))
 
@@ -26,7 +26,7 @@ class TestMainPage:
 
     def test_main_page_returns_expected_title(self, user, testapp):
         res = testapp.get('/')
-        assert '<title>\n  \n    tdd_with_python\n  \n    \n  </title>\n' in res
+        assert '<title>\n  \n    To-Do\n  \n    \n  </title>\n' in res
 
     # def test_main_page_returns_expected_content(self, user, testapp):
     #     res = testapp.get('/')

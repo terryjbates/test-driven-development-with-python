@@ -21,4 +21,4 @@ class FlaskClientTestCase(unittest.TestCase):
     def test_home_page(self):
         pass
         response = self.client.get(url_for('public.home'))
-    #     self.assertTrue('Stranger' in response.get_data(as_text=True))
+        self.assertTrue('To-Do' in response.get_data(as_text=True))
