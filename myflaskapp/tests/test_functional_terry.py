@@ -1,11 +1,11 @@
 import unittest
 from selenium import webdriver
-browser = webdriver.Chrome()
 
 class NewVisitorTest(unittest.TestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(5)
 
     def tearDown(self):
         self.browser.quit()
@@ -38,8 +38,8 @@ class NewVisitorTest(unittest.TestCase):
         # She visits that URL - her to-do list is still there.
 
         # Satisfied, she goes back to sleep
-        #self.browser.quit()
-
+        #self.fail('Finish the test')
+        self.browser.quit()
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(warnings='ignore')
