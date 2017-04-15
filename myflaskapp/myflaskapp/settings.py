@@ -6,7 +6,8 @@ import os
 class Config(object):
     """Base configuration."""
 
-    SECRET_KEY = os.environ.get('MYFLASKAPP_SECRET', 'secret-key')  # TODO: Change me
+    SECRET_KEY = os.environ.get('MYFLASKAPP_SECRET',
+                                '}\xa0C\x92\xa5~\x07\x9c\xc3\xba\x9e7]\xe0\xe5f\xb7\xaaw$\x15\xec')
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     BCRYPT_LOG_ROUNDS = 13
@@ -48,4 +49,8 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     BCRYPT_LOG_ROUNDS = 4  # For faster tests; needs at least 4 to avoid "ValueError: Invalid rounds"
     WTF_CSRF_ENABLED = False  # Allows form testing
+
+
+class TestServerNameConfig(TestConfig):
+    """Test configuration."""
     SERVER_NAME = 'http://localhost:5000/'
