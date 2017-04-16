@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
 from flask_wtf import Form
-from wtforms import PasswordField, StringField
+from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired
 
 from myflaskapp.user.models import User
@@ -37,3 +37,15 @@ class LoginForm(Form):
             self.username.errors.append('User not activated')
             return False
         return True
+
+
+class ToDoListForm(Form):
+    """To-Do List form."""
+
+    name = StringField('Enter a to-do item', validators=[DataRequired()])
+    submit = SubmitField('Add item')
+
+    def __init__(self, *args, **kwargs):
+        """Create instance."""
+        super(ToDoListForm, self).__init__(*args, **kwargs)
+        self.user = None
