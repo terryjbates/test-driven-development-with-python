@@ -1,10 +1,9 @@
 import unittest
 from myflaskapp.app import create_app
-from myflaskapp.database import db as _db
 from myflaskapp.settings import TestConfig, TestServerNameConfig
 
-from .factories import UserFactory
-from .conftest import app
+
+
 from flask import url_for
 
 class FlaskClientTestCase(unittest.TestCase):
@@ -19,6 +18,5 @@ class FlaskClientTestCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_home_page(self):
-        pass
         response = self.client.get(url_for('public.home'))
         self.assertTrue('To-Do' in response.get_data(as_text=True))
