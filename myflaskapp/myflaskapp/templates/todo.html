@@ -1,13 +1,27 @@
-  <div class ="row">
-      <input id="id_new_item" placeholder = "Enter a to-do item"/>
-      <table id ="id_list_table">
-          <tr>
-              <td>1:</td>
-              <td>Buy peacock feathers</td>
-          </tr>
-          <tr>
-              <td>2:</td>
-              <td>Use peacock feathers to make a fly</td>
-          </tr>
-      </table>
-  </div>
+
+<!--
+<div class="row">
+    <input id="id_new_item" placeholder="Enter a to-do item"/>
+    <table id="id_list_table">
+        <tr>
+            <td>1:</td>
+            <td>Buy peacock feathers</td>
+        </tr>
+        <tr>
+            <td>2:</td>
+            <td>Use peacock feathers to make a fly</td>
+        </tr>
+    </table>
+</div>
+
+-->
+{% with form=form %}
+    <form id="ToDoForm" method="POST" action="/to-do/" role="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            {{ form.name(placeholder="Enter a to-do item",
+                class_="form-control", id="id_new_item") }}
+        </div>
+        <button type="submit" class="btn btn-default" name="todo_btn">Submit New ToDo Item</button>
+    </form>
+{% endwith %}
