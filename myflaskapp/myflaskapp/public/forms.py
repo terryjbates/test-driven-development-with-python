@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
 from flask_wtf import Form
-from wtforms import PasswordField, StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import PasswordField, StringField, SubmitField, validators
+from wtforms.validators import DataRequired, required
 
 from myflaskapp.user.models import User
 
@@ -42,7 +42,9 @@ class LoginForm(Form):
 class ToDoListForm(Form):
     """To-Do List form."""
 
-    name = StringField('Enter a to-do item', validators=[DataRequired()])
+    name = StringField('Enter a to-do item',
+                     [validators.required(), validators.length(max=50)],
+                     id='id_new_item')
     submit = SubmitField('Add item')
 
     def __init__(self, *args, **kwargs):
