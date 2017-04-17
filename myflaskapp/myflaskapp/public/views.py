@@ -4,7 +4,7 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 
 from myflaskapp.extensions import login_manager
-from myflaskapp.public.forms import LoginForm
+from myflaskapp.public.forms import LoginForm, ToDoListForm
 from myflaskapp.user.forms import RegisterForm
 from myflaskapp.user.models import User
 from myflaskapp.utils import flash_errors
@@ -21,17 +21,18 @@ def load_user(user_id):
 @blueprint.route('/', methods=['GET', 'POST'])
 def home():
     """Home page."""
-    form = LoginForm(request.form)
+    login_form = LoginForm(request.form, prefix='login')
     # Handle logging in
     if request.method == 'POST':
-        if form.validate_on_submit():
-            login_user(form.user)
+        if login_form.validate_on_submit():
+            login_user(login_form.user)
             flash('You are logged in.', 'success')
             redirect_url = request.args.get('next') or url_for('user.members')
             return redirect(redirect_url)
         else:
             flash_errors(form)
-    return render_template('public/home.html', form=form)
+    return render_template('public/home.html', form=login_form)
+
 
 
 @blueprint.route('/logout/')
@@ -48,7 +49,8 @@ def register():
     """Register new user."""
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-        User.create(username=form.username.data, email=form.email.data, password=form.password.data, active=True)
+        User.create(username=form.username.data, email=form.email.data,
+                    password=form.password.data, active=True)
         flash('Thank you for registering. You can now log in.', 'success')
         return redirect(url_for('public.home'))
     else:
@@ -61,3 +63,10 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template('public/about.html', form=form)
+
+
+@blueprint.route('/to-do/', methods=['GET', 'POST'])
+def to_do():
+    """To-Do page."""
+    form = ToDoListForm(request.form)
+    return render_template('todo.html', form=form)
