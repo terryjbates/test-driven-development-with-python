@@ -15,7 +15,10 @@
 </div>
 
 -->
+
+
 {% block body %}
+    {% include "partials/nav.html" %}
     <form id="ToDoForm" method="POST" action="/to-do/" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div class="form-group">
@@ -25,10 +28,13 @@
         <button type="submit" class="btn btn-default" name="todo_btn">Submit New ToDo Item</button>
     </form>
 
+
+
 <header>
     {% block header %}
     {% endblock %}
 </header>
+
 
 
 <div class="{% block content_class %}container{% endblock content_class %}">
