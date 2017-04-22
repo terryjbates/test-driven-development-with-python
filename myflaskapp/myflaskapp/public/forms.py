@@ -2,7 +2,7 @@
 """Public forms."""
 from flask_wtf import Form
 from wtforms import PasswordField, StringField, SubmitField, validators
-from wtforms.validators import DataRequired, required
+from wtforms.validators import DataRequired
 
 from myflaskapp.user.models import User
 
