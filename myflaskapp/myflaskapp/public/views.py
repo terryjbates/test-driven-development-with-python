@@ -70,4 +70,5 @@ def about():
 def to_do():
     """To-Do page."""
     todo_form = ToDoListForm(request.form, prefix='todo')
+    login_form = LoginForm(request.form, prefix='login')
     return render_template('todo.html', form=todo_form)
