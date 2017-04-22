@@ -1,4 +1,4 @@
-
+{% include "partials/header.html" %}
 <!--
 <div class="row">
     <input id="id_new_item" placeholder="Enter a to-do item"/>
@@ -15,13 +15,49 @@
 </div>
 
 -->
-{% with form=form %}
+{% block body %}
     <form id="ToDoForm" method="POST" action="/to-do/" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div class="form-group">
-            {{ form.name(placeholder="Enter a to-do item",
-                class_="form-control", id="id_new_item") }}
+        {{ form.name(placeholder="Enter a to-do item", class_="form-control") }}
+
         </div>
         <button type="submit" class="btn btn-default" name="todo_btn">Submit New ToDo Item</button>
     </form>
-{% endwith %}
+
+<header>{% block header %}{% endblock %}</header>
+<div class="{% block content_class %}container{% endblock content_class %}">
+
+  <div role="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+         {{message}}
+        </div><!-- end .alert -->
+        {% endfor %}
+      </div><!-- end col-md -->
+    </div><!-- end row -->
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+</div><!-- end container -->
+
+{% include "footer.html" %}
+
+<!-- JavaScript at the bottom for fast page loading -->
+{% assets "js_all" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
+{% block js %}{% endblock %}
+<!-- end scripts -->
+{% endblock %}
+</body>
+</html>
+
