@@ -22,6 +22,7 @@ def load_user(user_id):
 def home():
     """Home page."""
     login_form = LoginForm(request.form, prefix='login')
+    todo_form = ToDoListForm(request.form, prefix='todo')
     # Handle logging in
     if request.method == 'POST':
         if login_form.validate_on_submit():
@@ -68,5 +69,5 @@ def about():
 @blueprint.route('/to-do/', methods=['GET', 'POST'])
 def to_do():
     """To-Do page."""
-    form = ToDoListForm(request.form)
-    return render_template('todo.html', form=form)
+    todo_form = ToDoListForm(request.form, prefix='todo')
+    return render_template('todo.html', form=todo_form)
