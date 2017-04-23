@@ -36,6 +36,13 @@
     {% endblock %}
 </header>
 
+{% if session['list_items'] %}
+    <ol>
+    {% for list_item in session['list_items'] %}
+        <li>{{ list_item }} </li>
+    {% endfor %}
+    </ol>
+{% endif %}
 
 
 <div class="{% block content_class %}container{% endblock content_class %}">
