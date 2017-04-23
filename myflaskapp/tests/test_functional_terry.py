@@ -36,7 +36,9 @@ class NewVisitorTest(unittest.TestCase):
         # When she hits enter, the page updates, and now the page lists
         # "1: Buy peacock feathers" as an item in a to-do list
         inputbox.send_keys(Keys.ENTER)
+        time.sleep(5)
         table = self.browser.find_element_by_id('id_list_table')
+
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
@@ -46,11 +48,16 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
 
-
-
         # The page updates again, and now shows both items on her list
+        self.browser.implicitly_wait(5)
+        del(rows)
+        del(table)
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+
         self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
         self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
         # Edith wonders whether the site will remember her list. Then she sees
         # that the site has generated a unique URL for her -- there is some
         # explanatory text to that effect.
