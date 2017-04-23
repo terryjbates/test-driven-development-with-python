@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, SubmitField, validators
 from wtforms.validators import DataRequired
 
 from myflaskapp.user.models import User
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     """Login form."""
 
     username = StringField('Username', validators=[DataRequired()])
@@ -39,15 +39,12 @@ class LoginForm(Form):
         return True
 
 
-class ToDoListForm(Form):
+class ToDoListForm(FlaskForm):
     """To-Do List form."""
 
-    name = StringField('Enter a to-do item',
+    item = StringField('Enter a to-do item',
                      [validators.required(), validators.length(max=50)],
                      id='id_new_item')
     submit = SubmitField('Add item')
 
-    def __init__(self, *args, **kwargs):
-        """Create instance."""
-        super(ToDoListForm, self).__init__(*args, **kwargs)
-        self.user = None
+
