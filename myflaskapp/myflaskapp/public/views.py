@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for, session
 from flask_login import login_required, login_user, logout_user
 
 from myflaskapp.extensions import login_manager
@@ -22,7 +22,6 @@ def load_user(user_id):
 def home():
     """Home page."""
     login_form = LoginForm(request.form, prefix='login')
-    todo_form = ToDoListForm(request.form, prefix='todo')
     # Handle logging in
     if request.method == 'POST':
         if login_form.validate_on_submit():
@@ -31,9 +30,8 @@ def home():
             redirect_url = request.args.get('next') or url_for('user.members')
             return redirect(redirect_url)
         else:
-            flash_errors(form)
+            flash_errors(login_form)
     return render_template('public/home.html', form=login_form)
-
 
 
 @blueprint.route('/logout/')
@@ -69,6 +67,36 @@ def about():
 @blueprint.route('/to-do/', methods=['GET', 'POST'])
 def to_do():
     """To-Do page."""
+    #
+
     todo_form = ToDoListForm(request.form, prefix='todo')
-    login_form = LoginForm(request.form, prefix='login')
-    return render_template('todo.html', form=todo_form)
+
+    searchword = request.args.get('key', '')
+    print('searchword',searchword)
+    if searchword == 'clear':
+        try:
+            session['list_items'] = []
+            return render_template('todo.html', form=todo_form)
+        except:
+            pass
+
+    if 'list_items' not in session:
+        print("We have no list items")
+        session['list_items'] = []
+    else:
+        pass
+
+    if todo_form.validate_on_submit():
+        print("On entry have list items", session['list_items'])
+        print("Form data", str(todo_form.item.data))
+        session['list_items'].append(str(todo_form.item.data))
+        session.modified = True
+        print("After append have list items", session['list_items'])
+        print("*" * 5)
+
+
+
+
+    #print("list_items", session['list_items'])
+    return render_template('todo.html', form=todo_form,
+                           session=session)
