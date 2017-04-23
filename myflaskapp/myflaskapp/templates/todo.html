@@ -36,14 +36,6 @@
     {% endblock %}
 </header>
 
-{% if session['list_items'] %}
-    <ol>
-    {% for list_item in session['list_items'] %}
-        <li>{{ list_item }} </li>
-    {% endfor %}
-    </ol>
-{% endif %}
-
 
 <div class="{% block content_class %}container{% endblock content_class %}">
 
@@ -63,7 +55,19 @@
         {% endif %}
     {% endwith %}
 
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% if session['list_items'] %}
+        <table id="id_list_table">
+        {% for list_item in session['list_items'] %}
+            <tr>
+                <td>{{ loop.index }}.</td>
+                <td>{{ list_item }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    {% endblock %}
+
   </div>
 
 </div><!-- end container -->
