@@ -15,7 +15,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_starting_a_new_todo_list(self):
         # Edith has heard about a cool new online to-do app. She goes # to check out
         #its homepage
-        self.browser.get('http://localhost:5000')
+        self.browser.get('http://localhost:5000/to-do')
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -23,7 +23,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('To-Do', header_text)
 
         # She is invited to enter a to-do item straight away
-        time.sleep(15)
+        time.sleep(5)
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
