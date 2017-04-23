@@ -93,6 +93,7 @@ def to_do():
         session.modified = True
         print("After append have list items", session['list_items'])
         print("*" * 5)
+        return redirect(url_for('.to_do'))
 
 
 
