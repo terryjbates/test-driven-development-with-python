@@ -8,4 +8,5 @@ from myflaskapp.extensions import bcrypt
 
 class Item(SurrogatePK, Model):
     __tablename__ = 'items'
-    pass
+    text = Column(db.String(80),nullable=True)
+
