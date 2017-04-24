@@ -6,6 +6,8 @@ import pytest
 
 from myflaskapp.user.models import Role, User
 
+from myflaskapp.item.models import Item
+
 from .factories import UserFactory
 
 
@@ -65,3 +67,27 @@ class TestUser:
         user.roles.append(role)
         user.save()
         assert role in user.roles
+
+@pytest.mark.usefixtures('db')
+class TestItem:
+    def test_get_by_id(self):
+        """Get user by ID."""
+        item = Item()
+        item.save()
+
+        retrieved = Item.get_by_id(item.id)
+        assert retrieved == item
+
+    def test_saving_and_retrieving_items(self):
+        first_item = Item()
+        first_item.text = 'The first (ever) list item'
+        first_item.save()
+
+        second_item = Item()
+        second_item.text = 'Item the second'
+        second_item.save()
+        #saved_items = Item.objects.all()
+        #self.assertEqual(saved_items.count(), 2)
+
+        assert first_item.text =='The first (ever) list item'
+        assert second_item.text =='Item the second'
