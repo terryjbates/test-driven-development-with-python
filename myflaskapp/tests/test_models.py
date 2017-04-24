@@ -89,5 +89,8 @@ class TestItem:
         #saved_items = Item.objects.all()
         #self.assertEqual(saved_items.count(), 2)
 
-        assert first_item.text =='The first (ever) list item'
-        assert second_item.text =='Item the second'
+        first_retrieved_item = Item.get_by_id(first_item.id)
+        second_retrieved_item = Item.get_by_id(second_item.id)
+
+        assert first_retrieved_item.text =='The first (ever) list item'
+        assert second_retrieved_item.text =='Item the second'
