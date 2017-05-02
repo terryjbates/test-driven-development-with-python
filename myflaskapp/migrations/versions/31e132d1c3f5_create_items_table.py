@@ -1,8 +1,8 @@
 """Create items table
 
-Revision ID: 042f45c107c4
-Revises: 8b1cf2bfda5e
-Create Date: 2017-04-24 02:31:00.545797
+Revision ID: 31e132d1c3f5
+Revises: 35a8c5b17aa2
+Create Date: 2017-05-01 18:21:47.550004
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '042f45c107c4'
-down_revision = '8b1cf2bfda5e'
+revision = '31e132d1c3f5'
+down_revision = '35a8c5b17aa2'
 branch_labels = None
 depends_on = None
 
@@ -23,6 +23,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-
 def downgrade():
     op.drop_table('items')
+
