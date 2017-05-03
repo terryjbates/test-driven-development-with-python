@@ -64,7 +64,7 @@ def about():
     return render_template('public/about.html', form=form)
 
 
-@blueprint.route('/to-do/', methods=['GET', 'POST'])
+@blueprint.route('/lists/', methods=['GET', 'POST'])
 def to_do():
     """To-Do page."""
     #

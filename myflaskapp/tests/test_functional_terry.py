@@ -21,7 +21,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_starting_a_new_todo_list(self):
         # Edith has heard about a cool new online to-do app. She goes # to check out
         # its homepage
-        self.browser.get('http://localhost:5000/to-do')
+        self.browser.get('http://localhost:5000/lists')
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
