@@ -21,7 +21,8 @@
 {% block body %}
     {% include "partials/nav.html" %}
     <h1>To-Do</h1>
-    <form id="ToDoForm" method="POST" action="/to-do/" role="form">
+    <form id="ToDoForm" method="POST" action="{{url_for('public.to_do')}}" role="form">
+    <!--<form id="ToDoForm" method="POST" action="/to-do/" role="form">-->
         <!--<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/> -->
         {{ form.hidden_tag() }}
         <div class="form-group">
