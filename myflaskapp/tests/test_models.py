@@ -70,6 +70,8 @@ class TestUser:
 
 @pytest.mark.usefixtures('db')
 class TestItem:
+    user = User('baz', 'baz@bar.com')
+
     def test_get_by_id(self):
         """Get user by ID."""
         item = Item()
@@ -86,9 +88,8 @@ class TestItem:
         second_item = Item()
         second_item.text = 'Item the second'
         second_item.save()
-        #saved_items = Item.objects.all()
-        #self.assertEqual(saved_items.count(), 2)
-
+        assert len(Item.query.all()) == 2
+        
         first_retrieved_item = Item.get_by_id(first_item.id)
         second_retrieved_item = Item.get_by_id(second_item.id)
 
